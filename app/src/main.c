@@ -4,59 +4,62 @@
 LOG_MODULE_REGISTER(demo, LOG_LEVEL_DBG);
 
 #define STACK_SIZE 1024
+#define PRIO 5
+#define INCREMENTS 100000
 
-#define PRIO_COOP (-1)
-#define PRIO_LOW 7
-#define PRIO_MED 5
-#define PRIO_HIG 3
+static volatile uint32_t counter;
 
-void coop_fn(void *p1, void *p2, void *p3) {
-  LOG_INF("[COOP] starting - will run 3 steps without yielding");
+static K_SEM_DEFINE(done_sem, 0, 2);
+static K_MUTEX_DEFINE(counter_mutex);
 
-  for (int i = 0; i < 3; i++) {
-    k_busy_wait(400000);
-    LOG_INF("[COOP] step %d/3 - still holding CPU tick=%u", i + 1,
-            k_uptime_get_32());
+void t_one_fn(void *p1, void *p2, void *p3) {
+  const char *name = k_thread_name_get(k_current_get());
+
+  for (int i = 0; i < INCREMENTS; i++) {
+    k_mutex_lock(&counter_mutex, K_FOREVER);
+    counter++;
+    k_mutex_unlock(&counter_mutex);
   }
 
-  LOG_INF("[COOP] yielding now, LOW, MEDIUM and HIGH can run");
-  k_yield();
-  LOG_INF("[COOP] done.");
+  LOG_INF("[%s] finished", name);
+  k_sem_give(&done_sem);
 }
 
-void t_low_fn(void *p1, void *p2, void *p3) {
-  while (1) {
-    LOG_INF("T_LOW running - CPU tick=%u", k_uptime_get_32());
-    k_msleep(300);
+void t_two_fn(void *p1, void *p2, void *p3) {
+  const char *name = k_thread_name_get(k_current_get());
+
+  for (int i = 0; i < INCREMENTS; i++) {
+    k_mutex_lock(&counter_mutex, K_FOREVER);
+    counter++;
+    k_mutex_unlock(&counter_mutex);
   }
+
+  LOG_INF("[%s] finished", name);
+  k_sem_give(&done_sem);
 }
 
-void t_med_fn(void *p1, void *p2, void *p3) {
-  while (1) {
-    LOG_INF("T_MED running - CPU tick=%u", k_uptime_get_32());
-    k_msleep(200);
-  }
-}
-
-void t_high_fn(void *p1, void *p2, void *p3) {
-  while (1) {
-    LOG_INF("T_HIGH running - CPU tick=%u", k_uptime_get_32());
-    k_msleep(100);
-  }
-}
-
-K_THREAD_DEFINE(t_coop, STACK_SIZE, coop_fn, NULL, NULL, NULL, PRIO_COOP, 0, 0);
-K_THREAD_DEFINE(t_low, STACK_SIZE, t_low_fn, NULL, NULL, NULL, PRIO_LOW, 0, 0);
-K_THREAD_DEFINE(t_med, STACK_SIZE, t_med_fn, NULL, NULL, NULL, PRIO_MED, 0, 0);
-K_THREAD_DEFINE(t_high, STACK_SIZE, t_high_fn, NULL, NULL, NULL, PRIO_HIG, 0,
-                0);
+K_THREAD_DEFINE(t_one, STACK_SIZE, t_one_fn, NULL, NULL, NULL, PRIO, 0, 0);
+K_THREAD_DEFINE(t_two, STACK_SIZE, t_two_fn, NULL, NULL, NULL, PRIO, 0, 0);
 
 int main(void) {
-  LOG_INF("=== L1 - TASK 1 ===");
-  LOG_INF("Thread COOP: Priority %d, busy wait then yield", PRIO_COOP);
-  LOG_INF("Thread LOW: Priority %d, sleeps 300ms", PRIO_LOW);
-  LOG_INF("Thread MEDIUM: Priority %d, sleeps 200ms", PRIO_MED);
-  LOG_INF("Thread HIGH: Priority %d, sleeps 100ms", PRIO_HIG);
+  int64_t time = k_uptime_get();
+
+  LOG_INF("=== L2 - TASK 1 ===");
+  LOG_INF("Thread 1: Priority %d", PRIO);
+  LOG_INF("Thread 2: Priority %d", PRIO);
+
+  k_sem_take(&done_sem, K_FOREVER);
+  k_sem_take(&done_sem, K_FOREVER);
+
+  LOG_INF("Actual  final value: %u", counter);
+
+  if (counter == INCREMENTS * 2) {
+    LOG_WRN("No race this run");
+  } else {
+    LOG_ERR("Race condition confirmed: lost %d updates",
+            (INCREMENTS * 2) - counter);
+  }
+  LOG_INF("Execution time: %lld ms", k_uptime_delta(&time));
 
   return 0;
 }
