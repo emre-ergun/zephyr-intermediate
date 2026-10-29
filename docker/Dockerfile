@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       python3-dev \
       python3-pip \
       python3-venv \
+      qemu-system-arm \
       wget \
       xz-utils \
     && rm -rf /var/lib/apt/lists/*
@@ -35,7 +36,9 @@ RUN base="https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${SDK_
     && tar xf "${tarball}" \
     && rm "${tarball}" sha256.sum \
     && cd "zephyr-sdk-${SDK_VERSION}" \
-    && ./setup.sh -t "${SDK_TOOLCHAIN}" -h
+    && ./setup.sh -t "${SDK_TOOLCHAIN}" \
+    && mkdir -p sysroots/x86_64-pokysdk-linux/usr/bin \
+    && ln -s /usr/bin/qemu-system-arm sysroots/x86_64-pokysdk-linux/usr/bin/qemu-system-arm
 
 ENV ZEPHYR_SDK_INSTALL_DIR=/opt/zephyr-sdk-${SDK_VERSION}
 ENV ZEPHYR_TOOLCHAIN_VARIANT=zephyr
@@ -55,8 +58,8 @@ RUN pip install --no-cache-dir --upgrade pip \
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh \
-    && groupadd -g ${GID} dev \
-    && useradd -u ${UID} -g ${GID} -m -s /bin/bash dev
+    && (groupadd -g ${GID} dev || groupmod -n dev $(getent group ${GID} | cut -d: -f1) || true) \
+    && (useradd -u ${UID} -g ${GID} -m -s /bin/bash dev || useradd -u ${UID} -g dialout -m -s /bin/bash dev)
 
 RUN mkdir /opt/zephyr-ws && chown dev:dev /opt/zephyr-ws
 
