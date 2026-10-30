@@ -12,15 +12,19 @@
 /* TODO(l8-task0): declare fake_sensor_sample_fetch, the FFF fake for
  * sensor_driver_api.sample_fetch. See HOMEWORK.md, Task 0.
  */
+/* FFF fake for sensor_driver_api.sample_fetch. */
+DECLARE_FAKE_VALUE_FUNC(int, fake_sensor_sample_fetch, const struct device *,
+                        enum sensor_channel);
 
 /* FFF fake for sensor_driver_api.channel_get. */
-DECLARE_FAKE_VALUE_FUNC(int, fake_sensor_channel_get, const struct device *, enum sensor_channel,
-			struct sensor_value *);
+DECLARE_FAKE_VALUE_FUNC(int, fake_sensor_channel_get, const struct device *,
+                        enum sensor_channel, struct sensor_value *);
 
 /** The fake sensor device the tests pass to temp_alarm_init(). */
 extern struct device fake_sensor_dev;
 
-/** @brief Set the temperature, in whole degrees Celsius, that channel_get returns. */
+/** @brief Set the temperature, in whole degrees Celsius, that channel_get
+ * returns. */
 void sensor_fake_set_temperature(int temp_celsius);
 
 /**
@@ -30,7 +34,8 @@ void sensor_fake_set_temperature(int temp_celsius);
  */
 void sensor_fake_init(void);
 
-/** @brief Reset every FFF fake, the call history and the simulated temperature. */
+/** @brief Reset every FFF fake, the call history and the simulated temperature.
+ */
 void sensor_fake_reset(void);
 
 #endif /* SENSOR_FAKE_H */
