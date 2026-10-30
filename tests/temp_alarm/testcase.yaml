@@ -8,11 +8,11 @@ common:
 tests:
   # Shuffled order (default) exposes hidden ordering dependencies
   homework.unit.temp_alarm:
-    platform_allow: native_sim
+    platform_allow: qemu_x86
     timeout: 60
 
   # Fixed order, for reproducing a failure
   homework.unit.temp_alarm.ordered:
-    platform_allow: native_sim
+    platform_allow: qemu_x86
     timeout: 60
     extra_args: CONFIG_ZTEST_SHUFFLE=n
