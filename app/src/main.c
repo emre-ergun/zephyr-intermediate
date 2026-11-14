@@ -5,8 +5,8 @@
 LOG_MODULE_REGISTER(homework, LOG_LEVEL_INF);
 
 #define STACK_SIZE 2048
-#define CONTROL_PRIORITY 4
-#define MAINTENANCE_PRIORITY 7
+#define CONTROL_PRIORITY 7
+#define MAINTENANCE_PRIORITY 4
 #define EVENT_PERIOD_MS 250
 #define MAINTENANCE_LOAD_US 45000
 #define MAX_ALLOWED_LATENCY_MS 10
@@ -79,8 +79,8 @@ static void control_fn(void *p1, void *p2, void *p3) {
       deadline_misses++;
       /* Rate-limited warning (Slide 13) */
       LOG_WRN_RATELIMIT(
-          "[CONTROL] Deadline missed! Latency: %u ms (Total misses: %u)",
-          latency, deadline_misses);
+          "[CONTROL] Deadline missed! seq=%u Latency: %u ms (Total misses: %u)",
+          event.seq, latency, deadline_misses);
     } else {
       LOG_INF("[CONTROL] Processed seq=%u (Latency: %u ms)", event.seq,
               latency);

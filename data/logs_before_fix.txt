@@ -1,0 +1,127 @@
+*** Booting Zephyr OS build v4.4.0 ***
+
+[00:00:00.000,000] <inf> homework: === L6 Homework: Runtime Investigation ===
+
+[00:00:00.000,000] <inf> homework: Control work must start within 10 ms
+
+[00:00:00.000,000] <inf> homework: Inspect, measure, trace, explain, and correct the delay
+
+[00:00:01.045,000] <wrn> homework: Skipped 2 messages
+
+[00:00:01.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=2 Latency: 40 ms (Total misses: 3)
+
+[00:00:02.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:02.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=6 Latency: 40 ms (Total misses: 7)
+
+[00:00:03.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:03.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=10 Latency: 40 ms (Total misses: 11)
+
+[00:00:04.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:04.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=14 Latency: 40 ms (Total misses: 15)
+
+[00:00:05.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:05.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=18 Latency: 40 ms (Total misses: 19)
+
+[00:00:06.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:06.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=22 Latency: 40 ms (Total misses: 23)
+
+[00:00:07.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:07.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=26 Latency: 40 ms (Total misses: 27)
+
+[00:00:08.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:08.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=30 Latency: 40 ms (Total misses: 31)
+
+[00:00:09.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:09.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=34 Latency: 40 ms (Total misses: 35)
+
+[00:00:10.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:10.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=38 Latency: 40 ms (Total misses: 39)
+
+[00:00:11.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:11.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=42 Latency: 40 ms (Total misses: 43)
+
+[00:00:12.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:12.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=46 Latency: 40 ms (Total misses: 47)
+
+[00:00:13.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:13.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=50 Latency: 40 ms (Total misses: 51)
+
+[00:00:14.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:14.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=54 Latency: 40 ms (Total misses: 55)
+
+[00:00:15.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:15.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=58 Latency: 40 ms (Total misses: 59)
+
+[00:00:16.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:16.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=62 Latency: 40 ms (Total misses: 63)
+
+[00:00:17.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:17.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=66 Latency: 40 ms (Total misses: 67)
+
+[00:00:18.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:18.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=70 Latency: 40 ms (Total misses: 71)
+
+[00:00:19.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:19.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=74 Latency: 40 ms (Total misses: 75)
+
+[00:00:20.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:20.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=78 Latency: 40 ms (Total misses: 79)
+
+[00:00:21.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:21.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=82 Latency: 40 ms (Total misses: 83)
+
+[00:00:22.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:22.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=86 Latency: 40 ms (Total misses: 87)
+
+[00:00:23.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:23.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=90 Latency: 40 ms (Total misses: 91)
+
+[00:00:24.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:24.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=94 Latency: 40 ms (Total misses: 95)
+
+[00:00:25.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:25.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=98 Latency: 40 ms (Total misses: 99)
+
+[00:00:26.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:26.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=102 Latency: 40 ms (Total misses: 103)
+
+[00:00:27.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:27.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=106 Latency: 40 ms (Total misses: 107)
+
+[00:00:28.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:28.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=110 Latency: 40 ms (Total misses: 111)
+
+[00:00:29.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:29.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=114 Latency: 40 ms (Total misses: 115)
+
+[00:00:30.045,000] <wrn> homework: Skipped 3 messages
+
+[00:00:30.045,000] <wrn> homework: [CONTROL] Deadline missed! seq=118 Latency: 40 ms (Total misses: 119):
