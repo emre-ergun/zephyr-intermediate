@@ -13,13 +13,13 @@ LOG_MODULE_REGISTER(demo, LOG_LEVEL_DBG);
 void coop_fn(void *p1, void *p2, void *p3) {
   LOG_INF("[COOP] starting - will run 3 steps without yielding");
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 5; i++) {
     k_busy_wait(400000);
-    LOG_INF("[COOP] step %d/3 - still holding CPU tick=%u", i + 1,
+    LOG_INF("[COOP] step %d/5 - still holding CPU tick=%u", i + 1,
             k_uptime_get_32());
   }
 
-  LOG_INF("[COOP] yielding now, LOW, MEDIUM and HIGH can run");
+  LOG_INF("[COOP] yielding now, Preemptible Thrads can run");
   k_yield();
   LOG_INF("[COOP] done.");
 }
