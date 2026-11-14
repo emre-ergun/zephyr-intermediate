@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
@@ -16,9 +17,13 @@ void t_one_fn(void *p1, void *p2, void *p3) {
   const char *name = k_thread_name_get(k_current_get());
 
   for (int i = 0; i < INCREMENTS; i++) {
-    k_mutex_lock(&counter_mutex, K_FOREVER);
-    counter++;
-    k_mutex_unlock(&counter_mutex);
+    // k_mutex_lock(&counter_mutex, K_FOREVER);
+    // force non-atomic read-modify-write and widen preemption window
+    // to expose race
+    uint32_t tmp = counter;
+    k_busy_wait(1);
+    counter = tmp + 1;
+    // k_mutex_unlock(&counter_mutex);
   }
 
   LOG_INF("[%s] finished", name);
@@ -29,9 +34,13 @@ void t_two_fn(void *p1, void *p2, void *p3) {
   const char *name = k_thread_name_get(k_current_get());
 
   for (int i = 0; i < INCREMENTS; i++) {
-    k_mutex_lock(&counter_mutex, K_FOREVER);
-    counter++;
-    k_mutex_unlock(&counter_mutex);
+    // k_mutex_lock(&counter_mutex, K_FOREVER);
+    // force non-atomic read-modify-write and widen preemption window
+    // to expose race
+    uint32_t tmp = counter;
+    k_busy_wait(1);
+    counter = tmp + 1;
+    // k_mutex_unlock(&counter_mutex);
   }
 
   LOG_INF("[%s] finished", name);
