@@ -1,1 +1,8 @@
 source "Kconfig.zephyr"
+
+config PROTECTED
+	bool "Protect counter increment with mutex"
+	default y
+	help
+	  When set to 'y', counter increments are protected with a mutex.
+	  When set to 'n', counter increments are unprotected to demonstrate race conditions.
